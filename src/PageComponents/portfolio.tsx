@@ -15,7 +15,7 @@ interface PortfolioProps {
 
 const Portfolio: React.FC<PortfolioProps> = ({ portfolioPieces, Header }) => {
     return (
-        <section className="bg-#F4E1CF dark:bg-#0C0500">
+        <section className="bg-#F4E1CF dark:bg-dark-gray">
             <div className="container px-6 py-10 mx-auto">
                 <h1 className="text-2xl font-semibold text-center text-gray-800 capitalize lg:text-3xl dark:text-white">
                     {Header}
