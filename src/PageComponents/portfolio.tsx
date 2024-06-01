@@ -1,19 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-interface Portfolio {
+interface PortfolioItem {
     heading: string;
     text: string;
     image: string;
     link: string;
 }
 
-interface PortfolioArray {
-    portfolioPieces: Portfolio[];
+interface PortfolioProps {
+    portfolioPieces: PortfolioItem[];
     Header: string;
 }
 
-const Portfolio: React.FC<PortfolioArray> = ({ portfolioPieces, Header }) => {
+const Portfolio: React.FC<PortfolioProps> = ({ portfolioPieces, Header }) => {
     return (
         <section className="bg-#F4E1CF dark:bg-#0C0500">
             <div className="container px-6 py-10 mx-auto">

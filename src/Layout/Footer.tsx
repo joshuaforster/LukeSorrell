@@ -19,12 +19,6 @@ export default function Footer() {
 
   const currentYear = new Date().getFullYear();
 
-  const handleLinkClick = (path:any) => {
-    if (window.location.pathname !== '/') {
-      window.location.href = '/' + path;
-    }
-  };
-
 
   return (
     <footer className="p-4 bg-gray-100 sm:p-6 dark:bg-dark-gray">
