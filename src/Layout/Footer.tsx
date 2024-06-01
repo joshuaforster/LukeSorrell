@@ -21,9 +21,9 @@ export default function Footer() {
 
 
   return (
-    <footer className="p-4 bg-gray-100 sm:p-6 dark:bg-dark-gray">
+    <footer className="p-4 bg-gray-100 sm:p-6 dark:bg-dark-gray ">
        <div className="border-t border-gray-200 dark:border-white sm:pt-8"></div>
-      <div className="mx-auto max-w-screen-xl">
+      <div className="mx-auto max-w-screen-xl ">
         <div className="md:flex md:justify-between">
           <div className="flex flex-col items-center mb-6 md:mb-0 md:items-start md:w-1/2">
             <Link to="/" className="flex items-center mb-4 md:mb-0">
@@ -36,7 +36,7 @@ export default function Footer() {
           </div>
           <div className="flex flex-wrap justify-between md:w-1/2">
             {/* Navigation Section */}
-            <div className="w-full sm:w-1/2 mb-6 md:mb-0 text-center md:text-left">
+            <div className="w-full sm:w-1/2 mb-6 md:mb-0 text-center md:text-left z-50">
               <div className="md:hidden border-t border-gray-200 dark:border-gray-400 pt-8 my-4"></div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Navigation</h2>
               <ul className="text-gray-600 dark:text-white">
@@ -49,7 +49,7 @@ export default function Footer() {
             </div>
 
             {/* Legal Section */}
-            <div className="w-full sm:w-1/2 text-center md:text-left">
+            <div className="w-full sm:w-1/2 text-center md:text-left z-50">
               <div className="md:hidden border-t border-gray-200 dark:border-gray-400 pt-8 my-4"></div>
               <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
               <ul className="text-gray-600 dark:text-white">

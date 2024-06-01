@@ -12,7 +12,7 @@ interface LogoSectionProps {
 
 const LogoSection: React.FC<LogoSectionProps> = ({ logos, theme }) => {
   return (
-    <section className="bg-white dark:bg-gray-900">
+    <section className="bg-white dark:bg-black">
       <div className="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
         <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-3 dark:text-gray-400">
           {logos.map((logo, index) => (

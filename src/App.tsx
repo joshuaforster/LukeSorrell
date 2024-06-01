@@ -7,7 +7,6 @@ import { ThemeProvider } from './CustomComponents/darkmode';
 import ScrollToTop from './CustomComponents/ScrollToTop';
 import PrivacyPolicy from './MainPages/privacypolicy';
 import TermsConditions from './MainPages/TermsConditions';
-
 import './App.css';
 
 function App() {

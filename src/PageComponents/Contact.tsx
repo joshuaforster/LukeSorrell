@@ -54,7 +54,13 @@ export default function Contact() {
                     className="w-full px-8 py-10 mx-auto overflow-hidden bg-#FFEFCE rounded-lg shadow-2xl dark:bg-gray-900 lg:max-w-xl shadow-gray-300/50 dark:shadow-black/50">
                     <h1 className="text-lg font-medium dark:text-white text-gray-700">What do you want to ask</h1>
 
-                    <form className="mt-6">
+                    <form 
+                        className="mt-6"
+                        name="contact"
+                        method="POST"
+                        data-netlify="true"
+                        data-netlify-honeypot="bot-field"
+                    >
                         <div className="flex-1">
                             <label className="block mb-2 text-sm text-gray-600 dark:text-white">Full Name</label>
                             <input type="text" placeholder="John Doe" className="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-white dark:bg-gray-900 dark:text-white dark:border-white focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />

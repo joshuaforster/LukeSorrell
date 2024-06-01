@@ -15,7 +15,7 @@ interface SkillsProps {
 
 const Skills: React.FC<SkillsProps> = ({ skills, headline, desc }) => {
     return (
-        <div className="bg-gray-100 dark:bg-#0C0500">
+        <div className="bg-#FFEBE7 dark:bg-dark-gray">
             <div className="mx-auto max-w-screen-xl px-4 py-8 text-center">
                 <h3 className="text-4xl font-bold mb-4 text-black dark:text-white">{headline}</h3>
                 <p className="text-lg mb-8 text-gray-700 dark:text-gray-300">{desc}</p>
