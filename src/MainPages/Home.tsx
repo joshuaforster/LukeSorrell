@@ -68,37 +68,37 @@ export default function Home() {
     
     const portfolioPieces = [
         {
-            heading: "Best website collections",
+            heading: "Dyslexia Awareness",
             text: "Website",
             image: "/images/Dyslexia.webp",
             link: "https://www.dropbox.com/scl/fo/fp04e5eil1m85bv9bwflw/h/Norwich%20University%20of%20the%20Arts/MA%20COMMUNICATION%20DESIGN?dl=0&preview=Dyslexia_Is_Not_A_Disability_2022_v2.mp4&subfolder_nav_tracking=1"
         },
         {
-            heading: "Block of UI kit collections",
+            heading: "Haunted Advertisement",
             text: "UI Kit",
             image: "/images/haunted.webp",
             link: "https://www.youtube.com/watch?v=0KXVhueCx4k"
         },
         {
-            heading: "Ton’s of mobile mockup",
+            heading: "Bad Reviews Posters",
             text: "Mockups",
             image: '/images/Reviews.webp',
             link: "https://www.dropbox.com/scl/fo/fp04e5eil1m85bv9bwflw/h/Norwich%20University%20of%20the%20Arts/MA%20COMMUNICATION%20DESIGN/MP_Posters_2023?dl=0&subfolder_nav_tracking=1"
         },
         {
-            heading: "Huge collection of animation",
+            heading: "Discovering Old Fonts",
             text: "Animation",
             image: "/images/Typography.webp",
             link: "https://www.dropbox.com/scl/fo/fp04e5eil1m85bv9bwflw/h/Norwich%20University%20of%20the%20Arts/MA%20COMMUNICATION%20DESIGN/Typography_Project_2023?dl=0&subfolder_nav_tracking=1"
         },
         {
-            heading: "Huge collection of animation",
+            heading: "Loreal Animation",
             text: "Animation",
             image: "/images/loreal.webp",
             link: "https://www.youtube.com/watch?v=qHTvaAztvWI"
         },
         {
-            heading: "Huge collection of animation",
+            heading: "Cafe",
             text: "Animation",
             image: "/images/cafe.webp",
             link: "https://www.dropbox.com/scl/fo/fp04e5eil1m85bv9bwflw/h/Freelance%20Work?dl=0&subfolder_nav_tracking=1"
