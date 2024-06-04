@@ -6,8 +6,8 @@ import { useTheme } from '../CustomComponents/darkmode';
 export default function Header() {
   const navigationLinks = [
     { name: 'Home', path: '#hero' },
-    { name: 'About', path: '#about' },
     { name: 'Portfolio', path: '#portfolio' },
+    { name: 'About', path: '#about' },
     { name: 'Contact', path: '#contact' }
   ];
 
