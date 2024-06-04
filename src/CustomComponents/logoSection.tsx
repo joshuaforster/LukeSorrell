@@ -14,7 +14,10 @@ const LogoSection: React.FC<LogoSectionProps> = ({ logos, theme }) => {
   return (
     <section className="bg-white dark:bg-black">
       <div className="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
-        <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-3 dark:text-gray-400">
+        <h2 className="text-lg font-semibold leading-8 text-gray-900 dark:text-gray-100">
+          Worked alongside ...
+        </h2>
+        <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-3 dark:text-gray-400 mt-8">
           {logos.map((logo, index) => (
             <div key={index} className="flex justify-center items-center">
               <img
