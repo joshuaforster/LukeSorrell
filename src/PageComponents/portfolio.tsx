@@ -76,6 +76,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ Header }) => {
             <Link
               to={piece.link}
               key={key}
+              target="_blank"
               className="relative isolate flex flex-col justify-end overflow-hidden rounded-2xl bg-gray-900 dark:bg-gray-800 px-8 pb-8 pt-80 sm:pt-48 lg:pt-80"
             >
               <img
