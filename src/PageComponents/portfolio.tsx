@@ -1,19 +1,65 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { createClient } from 'contentful';
+
+const spaceId = 'oyk9ajukd2hh';
+const accessToken = 'hByayhQ07jnSKqia90NpcS61mEksyNYX35QY75Gur60';
 
 interface PortfolioItem {
   heading: string;
-  text: string;
   image: string;
   link: string;
 }
 
 interface PortfolioProps {
-  portfolioPieces: PortfolioItem[];
   Header: string;
 }
 
-const Portfolio: React.FC<PortfolioProps> = ({ portfolioPieces, Header }) => {
+const Portfolio: React.FC<PortfolioProps> = ({ Header }) => {
+  const [portfolioPieces, setPortfolioPieces] = useState<PortfolioItem[]>([]);
+  const [subHeadline, setSubHeadline] = useState<string>('');
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string>('');
+
+  useEffect(() => {
+    const client = createClient({
+      space: spaceId,
+      accessToken: accessToken
+    });
+
+    const fetchPortfolioData = async () => {
+      try {
+        const response = await client.getEntries({ content_type: 'portfolioSection', include: 2 });
+        const portfolioEntry = response.items[0];
+
+        if (portfolioEntry && portfolioEntry.fields.portfolioPieces) {
+          const pieces = (portfolioEntry.fields.portfolioPieces as any[]).map((piece: any) => ({
+            heading: piece.fields.nameOfWork,
+            image: piece.fields.image.fields.file.url,
+            link: piece.fields.link
+          }));
+          setPortfolioPieces(pieces);
+          setSubHeadline(portfolioEntry.fields.portfolioSubHeadline as string || '');
+        }
+
+        setIsLoading(false);
+      } catch (error) {
+        setError('Error fetching portfolio data');
+        setIsLoading(false);
+      }
+    };
+
+    fetchPortfolioData();
+  }, []);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
   return (
     <section className="bg-white dark:bg-black py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -22,7 +68,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolioPieces, Header }) => {
             {Header}
           </h1>
           <p className="mt-2 text-lg leading-8 text-gray-600 dark:text-gray-400">
-            Collaborated with some of the best in the industry.
+            {subHeadline}
           </p>
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
@@ -50,7 +96,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ portfolioPieces, Header }) => {
         </div>
       </div>
     </section>
-  );
+);
 };
 
 export default Portfolio;
