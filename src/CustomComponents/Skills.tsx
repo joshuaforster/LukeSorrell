@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { Document } from '@contentful/rich-text-types';
-import { createClient } from 'contentful';
+
 
 interface Skill {
   imgSrc: string;
@@ -31,10 +31,7 @@ interface FetchResponse {
   };
 }
 
-const client = createClient({
-  space: 'oyk9ajukd2hh',
-  accessToken: 'hByayhQ07jnSKqia90NpcS61mEksyNYX35QY75Gur60'
-});
+
 
 const Skills: React.FC<SkillsProps> = ({ headline, subHeadline }) => {
   const [skills, setSkills] = useState<Skill[]>([]);
