@@ -6,6 +6,7 @@ import { useTheme } from '../CustomComponents/darkmode';
 export default function Header() {
   const navigationLinks = [
     { name: 'Home', path: '#hero' },
+    { name: 'Services', path: '#skills' }, // Updated link
     { name: 'Portfolio', path: '#portfolio' },
     { name: 'About', path: '#about' },
     { name: 'Contact', path: '#contact' }
@@ -19,13 +20,14 @@ export default function Header() {
 
   const { theme, toggleTheme } = useTheme();
 
-  const handleLinkClick = (path:any) => {
+  const handleLinkClick = (path: string) => {
     if (window.location.pathname !== '/') {
       window.location.href = '/' + path;
     } else {
       setMobileMenuOpen(false);
     }
   };
+
   return (
     <header className="sticky top-0 bg-white shadow-lg z-50 dark:bg-neutral-800">
       <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-neutral-800">

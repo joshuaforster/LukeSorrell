@@ -5,6 +5,7 @@ import { useTheme } from '../CustomComponents/darkmode';
 export default function Footer() {
   const navigationLinks = [
     { name: 'Home', path: '#hero' },
+    { name: 'Services', path: '#skills' }, // Updated link
     { name: 'About', path: '#about' },
     { name: 'Portfolio', path: '#portfolio' },
     { name: 'Contact', path: '#contact' }
