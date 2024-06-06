@@ -8,7 +8,6 @@ import { Navigation, Pagination, A11y } from 'swiper/modules';
 import { createClient } from 'contentful';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { FaStar } from 'react-icons/fa';
-import Button from '../CustomComponents/buttons';
 
 const client = createClient({
   space: 'oyk9ajukd2hh',
@@ -66,7 +65,7 @@ export default function TestimonialSlider() {
       <div className="container mx-auto">
         <h2 className="text-3xl font-bold text-center mb-8 dark:text-white">Testimonials</h2>
         <p className="text-center mb-8 text-gray-600 dark:text-gray-300">
-          Here are some of the reviews from our satisfied customers. Click the button below to see more reviews on our Facebook page.
+          Here are some of the reviews from our satisfied customers.
         </p>
         <Swiper
           modules={[Navigation, Pagination, A11y]}
