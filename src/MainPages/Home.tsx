@@ -20,10 +20,15 @@ interface AboutSection {
     image: string;
 }
 
+interface SkillsSection {
+    headline: string;
+    subHeadline: string;
+}
+
 export default function Home() {
     const { theme } = useTheme();
 
-    const [skillsSection, setSkillsSection] = useState<{ headline: string; desc: React.ReactNode }>({ headline: '', desc: '' });
+    const [skillsSection, setSkillsSection] = useState<SkillsSection>({ headline: '', subHeadline: '' });
     const [whyMeSection, setWhyMeSection] = useState<{ headline: string; text: React.ReactNode }>({ headline: '', text: '' });
     const [aboutSection, setAboutSection] = useState<AboutSection>({ headline: '', body: null, image: '' });
     const [error, setError] = useState<string>('');
@@ -40,14 +45,14 @@ export default function Home() {
                 const res = await client.getEntries({ include: 2 });
                 console.log('Fetch response:', res);
 
-                const skillsEntry = res.items.find((item: any) => item.sys.contentType.sys.id === 'skills');
+                const skillsEntry = res.items.find((item: any) => item.sys.contentType.sys.id === 'whatIOffer');
                 const whyMeEntry = res.items.find((item: any) => item.sys.contentType.sys.id === 'whatIOffer');
                 const aboutEntry = res.items.find((item: any) => item.sys.contentType.sys.id === 'aboutSection');
 
                 if (skillsEntry) {
                     setSkillsSection({
-                        headline: skillsEntry.fields.skill as string,
-                        desc: documentToReactComponents(skillsEntry.fields.skillSubText as any),
+                        headline: skillsEntry.fields.headline as string,
+                        subHeadline: skillsEntry.fields.subHeadline as string,
                     });
                 }
 
@@ -100,7 +105,7 @@ export default function Home() {
                 <LogoSection theme={theme} />
             </div>
             <div id="skills">
-                <Skills headline={skillsSection.headline} desc={skillsSection.desc} />
+                <Skills headline={skillsSection.headline} subHeadline={skillsSection.subHeadline} />
             </div>
             <div id="whyme">
                 <WhyMe headline={whyMeSection.headline} text={whyMeSection.text} />

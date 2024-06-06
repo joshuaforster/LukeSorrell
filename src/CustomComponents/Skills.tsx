@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { Document } from '@contentful/rich-text-types';
+import { createClient } from 'contentful';
 
 interface Skill {
   imgSrc: string;
   imgAlt: string;
   title: string;
-  description: Document; // Updated to use Document type for rich text
+  description: Document;
 }
 
 interface SkillsProps {
   headline: string;
-  desc: React.ReactNode;
+  subHeadline: string;
 }
 
 interface FetchResponse {
@@ -30,7 +31,12 @@ interface FetchResponse {
   };
 }
 
-const Skills: React.FC<SkillsProps> = ({ headline, desc }) => {
+const client = createClient({
+  space: 'oyk9ajukd2hh',
+  accessToken: 'hByayhQ07jnSKqia90NpcS61mEksyNYX35QY75Gur60'
+});
+
+const Skills: React.FC<SkillsProps> = ({ headline, subHeadline }) => {
   const [skills, setSkills] = useState<Skill[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>('');
@@ -81,10 +87,10 @@ const Skills: React.FC<SkillsProps> = ({ headline, desc }) => {
     <div className="bg-#FFEBE7 dark:bg-dark-gray">
       <div className="mx-auto max-w-screen-xl px-4 py-8 text-center">
         <h3 className="text-4xl font-bold mb-4 text-black dark:text-white">{headline}</h3>
-        <div className="text-lg mb-8 text-gray-700 dark:text-gray-300">{desc}</div>
-        <div className="flex flex-col items-center md:flex-row md:justify-between">
+        <div className="text-lg mb-8 text-gray-700 dark:text-gray-300">{subHeadline}</div>
+        <div className="flex flex-wrap justify-between">
           {skills.map((skill, index) => (
-            <div key={index} className='flex flex-col items-center text-center mb-4 md:mb-0'>
+            <div key={index} className="flex flex-col items-center text-center m-2 p-4 w-full md:w-1/3 lg:w-1/4">
               <img
                 src={skill.imgSrc}
                 alt={skill.imgAlt}
