@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Button from '../CustomComponents/buttons';
 
 interface HeroFields {
@@ -23,6 +23,8 @@ const Hero: React.FC = () => {
   const [content, setContent] = useState<HeroFields | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>('');
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const url = `https://cdn.contentful.com/spaces/oyk9ajukd2hh/environments/master/entries?access_token=hByayhQ07jnSKqia90NpcS61mEksyNYX35QY75Gur60&content_type=heroSection`;
@@ -62,6 +64,23 @@ const Hero: React.FC = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const { top } = sectionRef.current.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        if (top < windowHeight * 0.75) {
+          setIsVisible(true);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check visibility on initial render
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -77,9 +96,9 @@ const Hero: React.FC = () => {
   }
 
   return (
-    <section className="bg-#FFEBE7 dark:bg-dark-gray">
+    <section ref={sectionRef} className="bg-#FFEBE7 dark:bg-dark-gray">
       <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 md:grid-cols-12">
-        <div className="mr-auto place-self-center md:col-span-7">
+        <div className={`mr-auto place-self-center md:col-span-7 transition-transform duration-2000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
           <h1 className="max-w-2xl mb-4 text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl dark:text-white text-center md:text-left">
             {content?.headline || 'Default Headline'}
           </h1>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 import { Document } from '@contentful/rich-text-types';
-
 
 interface Skill {
   imgSrc: string;
@@ -30,8 +30,6 @@ interface FetchResponse {
     }>;
   };
 }
-
-
 
 const Skills: React.FC<SkillsProps> = ({ headline, subHeadline }) => {
   const [skills, setSkills] = useState<Skill[]>([]);
@@ -87,19 +85,39 @@ const Skills: React.FC<SkillsProps> = ({ headline, subHeadline }) => {
         <div className="text-lg mb-8 text-gray-700 dark:text-gray-300">{subHeadline}</div>
         <div className="flex flex-wrap justify-between">
           {skills.map((skill, index) => (
-            <div key={index} className="flex flex-col items-center text-center m-2 p-4 w-full md:w-1/3 lg:w-1/4">
-              <img
-                src={skill.imgSrc}
-                alt={skill.imgAlt}
-                className="h-24 mb-4"
-              />
-              <h3 className="text-xl font-semibold text-black dark:text-white">{skill.title}</h3>
-              <div className="text-gray-700 dark:text-gray-300">
-                {documentToReactComponents(skill.description)}
-              </div>
-            </div>
+            <SkillItem key={index} skill={skill} />
           ))}
         </div>
+      </div>
+    </div>
+  );
+};
+
+interface SkillItemProps {
+  skill: Skill;
+}
+
+const SkillItem: React.FC<SkillItemProps> = ({ skill }) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.75, // Using 75% of the window height
+  });
+
+  return (
+    <div
+      ref={ref}
+      className={`flex flex-col items-center text-center m-2 p-4 w-full md:w-1/3 lg:w-1/4 transition-transform duration-700 ease-in-out ${
+        inView ? 'transform translate-y-0 opacity-100' : 'transform translate-y-10 opacity-0'
+      }`}
+    >
+      <img
+        src={skill.imgSrc}
+        alt={skill.imgAlt}
+        className="h-24 mb-4"
+      />
+      <h3 className="text-xl font-semibold text-black dark:text-white">{skill.title}</h3>
+      <div className="text-gray-700 dark:text-gray-300">
+        {documentToReactComponents(skill.description)}
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 interface Logo {
   lightModeSrc: string;
@@ -37,6 +37,8 @@ const LogoSection: React.FC<LogoSectionProps> = ({ theme }) => {
   const [headline, setHeadline] = useState<string>('');
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>('');
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const url = `https://cdn.contentful.com/spaces/oyk9ajukd2hh/environments/master/entries?access_token=hByayhQ07jnSKqia90NpcS61mEksyNYX35QY75Gur60&content_type=logoSection`;
@@ -49,7 +51,6 @@ const LogoSection: React.FC<LogoSectionProps> = ({ theme }) => {
         return res.json();
       })
       .then((data: FetchResponse) => {
-        console.log('Fetch response:', data);
         if (data.items.length > 0) {
           const fields = data.items[0].fields;
           setHeadline(fields.logoHeadline);
@@ -81,6 +82,23 @@ const LogoSection: React.FC<LogoSectionProps> = ({ theme }) => {
       });
   }, []);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (sectionRef.current) {
+        const { top } = sectionRef.current.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        if (top < windowHeight * 0.75) {
+          setIsVisible(true);
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check visibility on initial render
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -90,24 +108,40 @@ const LogoSection: React.FC<LogoSectionProps> = ({ theme }) => {
   }
 
   return (
-    <section className="bg-white dark:bg-black">
+    <section ref={sectionRef} className="bg-white dark:bg-black">
       <div className="py-8 lg:py-16 mx-auto max-w-screen-xl px-4">
         <h2 className="text-lg font-semibold leading-8 text-gray-900 dark:text-gray-100">
           {headline}
         </h2>
         <div className="grid grid-cols-2 gap-8 text-gray-500 sm:gap-12 md:grid-cols-3 lg:grid-cols-3 dark:text-gray-400 mt-8">
           {logos.map((logo, index) => (
-            <div key={index} className="flex justify-center items-center">
-              <img
-                src={theme === 'dark' ? logo.darkModeSrc : logo.lightModeSrc}
-                alt={logo.alt}
-                className="h-14 hover:text-gray-900 dark:hover:text-white"
-              />
-            </div>
+            <LogoItem key={index} logo={logo} theme={theme} isVisible={isVisible} />
           ))}
         </div>
       </div>
     </section>
+  );
+};
+
+interface LogoItemProps {
+  logo: Logo;
+  theme: string;
+  isVisible: boolean;
+}
+
+const LogoItem: React.FC<LogoItemProps> = ({ logo, theme, isVisible }) => {
+  return (
+    <div
+      className={`flex justify-center items-center transition-transform duration-700 ease-in-out ${
+        isVisible ? 'transform translate-y-0 opacity-100' : 'transform translate-y-10 opacity-0'
+      }`}
+    >
+      <img
+        src={theme === 'dark' ? logo.darkModeSrc : logo.lightModeSrc}
+        alt={logo.alt}
+        className="h-14 hover:text-gray-900 dark:hover:text-white"
+      />
+    </div>
   );
 };
 
