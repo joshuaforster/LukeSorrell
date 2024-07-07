@@ -1,7 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FiSun, FiMoon } from 'react-icons/fi';
-import { useTheme } from '../CustomComponents/darkmode';
 
 export default function Header() {
   const navigationLinks = [
@@ -13,12 +11,11 @@ export default function Header() {
   ];
 
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
-
-  const { theme, toggleTheme } = useTheme();
 
   const handleLinkClick = (path: string) => {
     if (window.location.pathname !== '/') {
@@ -28,13 +25,29 @@ export default function Header() {
     }
   };
 
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 70) { // Add a little delay
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <header className="sticky top-0 bg-white shadow-lg z-50 dark:bg-neutral-800">
-      <nav className="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-neutral-800">
+    <header className={`sticky top-0 z-50 transition-all duration-900 ${isScrolled ? 'bg-customBlue' : 'bg-transparent'}`}>
+      <nav className={`border-gray-200 px-4 lg:px-6 py-2.5 transition-all duration-900 ${isScrolled ? 'bg-customBlue' : 'bg-transparent'}`}>
         <div className="flex items-center justify-between mx-auto max-w-screen-xl">
           <Link to="/" className="flex items-center" onClick={() => handleLinkClick('#hero')}>
             <img
-              src={theme === 'dark' ? '/images/LukeLogoDark.png' : '/images/LukeLogo.webp'}
+              src={'/images/LukeLogo.png'}
               className="h-16 sm:h-16"
               alt="Company Logo"
             />
@@ -45,7 +58,7 @@ export default function Header() {
                 <li key={index}>
                   <a
                     href={link.path}
-                    className="block py-2 pr-4 pl-3 text-gray-700 dark:text-white hover:bg-gray-200 dark:hover:bg-gray-200 dark:hover:text-black rounded-lg"
+                    className={`block py-2 pr-4 pl-3 rounded-lg text-white transition-all duration-300`}
                     onClick={() => handleLinkClick(link.path)}
                   >
                     {link.name}
@@ -53,17 +66,11 @@ export default function Header() {
                 </li>
               ))}
             </ul>
-            <button
-              onClick={toggleTheme}
-              className="p-2 text-gray-800 bg-gray-200 rounded dark:text-white dark:bg-gray-700"
-            >
-              {theme === 'dark' ? <FiSun size={24} /> : <FiMoon size={24} />}
-            </button>
           </div>
           <div className="flex lg:hidden items-center">
             <button
               type="button"
-              className="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className={`inline-flex items-center p-2 text-sm rounded-lg text-white transition-all duration-300 ${isScrolled ? 'hover:bg-gray-100 focus:ring-gray-200' : 'hover:bg-gray-100 focus:ring-gray-200'}`}
               aria-controls="mobile-menu-2"
               aria-expanded={isMobileMenuOpen}
               onClick={toggleMobileMenu}
@@ -79,12 +86,6 @@ export default function Header() {
                 </svg>
               )}
             </button>
-            <button
-              onClick={toggleTheme}
-              className="ml-2 p-2 text-gray-800 bg-gray-200 rounded dark:text-white dark:bg-gray-700"
-            >
-              {theme === 'dark' ? <FiSun size={24} /> : <FiMoon size={24} />}
-            </button>
           </div>
         </div>
         {isMobileMenuOpen && (
@@ -94,7 +95,7 @@ export default function Header() {
                 <li key={index}>
                   <a
                     href={link.path}
-                    className="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-700 dark:border-gray-700"
+                    className="block py-2 pr-4 pl-3 text-white border-b border-gray-100 hover:bg-gray-50 dark:hover:bg-gray-700 dark:border-gray-700"
                     onClick={() => handleLinkClick(link.path)}
                   >
                     {link.name}

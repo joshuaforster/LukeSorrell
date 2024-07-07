@@ -29,7 +29,7 @@ export default function Footer() {
           <div className="flex flex-col items-center mb-6 md:mb-0 md:items-start md:w-1/2">
             <Link to="/" className="flex items-center mb-4 md:mb-0">
               <img
-                 src={theme === 'dark' ? '/images/LukeLogoDark.png' : '/images/LukeLogo.webp'}
+                 src={'/images/LukeLogo.png'}
                 className="h-184 sm:h-14"
                 alt="Company Logo"
               />

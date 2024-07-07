@@ -8,13 +8,13 @@ export default function Contact() {
   const { ref: formRef, inView: formInView } = useInView({ triggerOnce: true, threshold: 0.75 });
 
   return (
-    <section className="bg-[#F26321] dark:bg-dark-gray">
+    <section>
       <div className="container px-6 py-12 mx-auto">
         <div className="lg:flex lg:items-center lg:-mx-6">
           <div className="lg:w-1/2 lg:mx-6">
             <h1
               ref={headingRef}
-              className={`text-2xl font-semibold text-black capitalize dark:text-white lg:text-3xl transition-transform duration-700 ease-in-out ${
+              className={`text-2xl font-semibold capitalize dark:text-white lg:text-3xl transition-transform duration-700 ease-in-out ${
                 headingInView ? 'transform translate-y-0 opacity-100' : 'transform -translate-y-10 opacity-0'
               }`}
             >
@@ -30,7 +30,7 @@ export default function Contact() {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="w-6 h-6 mx-2 text-black dark:text-white"
+                  className="w-6 h-6 mx-2  dark:text-white"
                   fill="none"
                   viewBox="0 0 24 24"
                   stroke="currentColor"
@@ -42,8 +42,8 @@ export default function Contact() {
                     d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   />
                 </svg>
-                <span className="mx-2 text-black truncate w-72 dark:text-white">
-                  luke.sorrell22@outlook.com
+                <span className="mx-2  truncate w-72 dark:text-white">
+                  Think of sowemthing later
                 </span>
               </p>
             </div>
@@ -51,7 +51,7 @@ export default function Contact() {
             <div className="mt-6 w-80 md:mt-8">
               <h3
                 ref={followUsRef}
-                className={`text-black dark:text-white transition-transform duration-700 ease-in-out ${
+                className={` dark:text-white transition-transform duration-700 ease-in-out ${
                   followUsInView ? 'transform translate-y-0 opacity-100' : 'transform -translate-y-10 opacity-0'
                 }`}
               >
@@ -60,7 +60,7 @@ export default function Contact() {
 
               <div className="flex mt-4 -mx-1.5">
                 <a
-                  className="mx-1.5 dark:hover:text-white text-black transition-colors duration-300 transform dark:text-white"
+                  className="mx-1.5 dark:hover:text-white transition-colors duration-300 transform dark:text-white"
                   href="https://www.facebook.com/luke.sorrell.961"
                 >
                   <svg
@@ -77,7 +77,7 @@ export default function Contact() {
                 </a>
 
                 <a
-                  className="mx-1.5 dark:hover:text-white text-black transition-colors duration-300 transform dark:text-white"
+                  className="mx-1.5  transition-colors duration-300 transform dark:text-white"
                   href="https://www.instagram.com/_luke.sorrell_/&ved=2ahUKEwjsr4_0ubqGAxWpU0EAHU9JAOwQFnoECBUQAQ&usg=AOvVaw1NYxL_m6S9nlBntWvoOFp9"
                 >
                   <svg

@@ -1,117 +1,50 @@
-import React, { useEffect, useState, useRef } from 'react';
-import Button from '../CustomComponents/buttons';
-
-interface HeroFields {
-  headline: string;
-  subHeadline: string;
-  headlineImage?: { sys: { id: string } } | { url: string };
-}
-
-interface FetchResponse {
-  items: Array<{
-    fields: HeroFields;
-  }>;
-  includes?: {
-    Asset: Array<{
-      sys: { id: string };
-      fields: { file: { url: string } };
-    }>;
-  };
-}
+import React from 'react';
 
 const Hero: React.FC = () => {
-  const [content, setContent] = useState<HeroFields | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string>('');
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const url = `https://cdn.contentful.com/spaces/oyk9ajukd2hh/environments/master/entries?access_token=hByayhQ07jnSKqia90NpcS61mEksyNYX35QY75Gur60&content_type=heroSection`;
-
-    fetch(url)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! Status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .then((data: FetchResponse) => {
-        if (data.items.length > 0) {
-          const fields = data.items[0].fields;
-
-          if (fields.headlineImage && 'sys' in fields.headlineImage) {
-            const mainImageId = fields.headlineImage.sys.id;
-            const mainImageAsset = data.includes?.Asset.find(asset => asset.sys.id === mainImageId);
-
-            if (mainImageAsset) {
-              fields.headlineImage = { url: mainImageAsset.fields.file.url };
-            } else {
-              setError('Main image not found');
-            }
-          }
-
-          setContent(fields);
-        } else {
-          setError('Content not found');
-        }
-        setIsLoading(false);
-      })
-      .catch(err => {
-        console.error('Error fetching content:', err);
-        setError(err.message);
-        setIsLoading(false);
-      });
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      if (sectionRef.current) {
-        const { top } = sectionRef.current.getBoundingClientRect();
-        const windowHeight = window.innerHeight;
-        if (top < windowHeight * 0.75) {
-          setIsVisible(true);
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // Check visibility on initial render
-
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return (
-      <div>
-        Error: {error}
-        <br />
-        <pre>{error}</pre>
-      </div>
-    );
-  }
+  const currentYear = new Date().getFullYear();
 
   return (
-    <section ref={sectionRef} className="bg-#FFEBE7 dark:bg-dark-gray">
-      <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 md:grid-cols-12">
-        <div className={`mr-auto place-self-center md:col-span-7 transition-transform duration-2000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'}`}>
-          <h1 className="max-w-2xl mb-4 text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl dark:text-white text-center md:text-left">
-            {content?.headline || 'Default Headline'}
+    <section className=" border-b-4 border-white">
+      <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
+        <div className="mr-auto place-self-center lg:col-span-7">
+          <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl dark:text-white">
+            Commisions {currentYear}
           </h1>
-          <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-white text-center md:text-left">
-            {content?.subHeadline || 'Default Subheadline'}
+          <p className="max-w-2xl mb-6 font-light lg:mb-8 md:text-lg lg:text-xl">
+            From basic cleanups to full art edits, we offer a range of services to enhance and transform your photos and artwork
           </p>
-          <div className="flex justify-center md:justify-start">
-            <Button className="mr-4" variant="primary" href="#portfolio">View Projects</Button>
-            <Button variant="secondary" href="#about">Learn About Luke</Button>
-          </div>
+          <a
+              href="#"
+              className="inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300"
+            >
+              Get started
+              <svg
+                className="w-5 h-5 ml-2 -mr-1"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            </a>
+            <a
+              href="#"
+              className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-orange-500 border bg-white border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100"
+            >
+              Speak to Sales
+            </a>
+
         </div>
-        <div className="md:col-span-5 flex items-center justify-center md:justify-end">
-          <img className="w-full md:w-auto" src={(content?.headlineImage && 'url' in content.headlineImage) ? content.headlineImage.url : 'images/hero.jpg'} alt="abstract art" style={{ maxHeight: '75vh' }} />
+        <div className="hidden lg:mt-0 lg:col-span-5 lg:flex">
+          <img
+            src="images/hero.jpg"
+            alt="mockup"
+          />
         </div>
       </div>
     </section>

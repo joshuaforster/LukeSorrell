@@ -13,6 +13,9 @@ module.exports = {
         '#F4E1CF': '#F4E1CF',
         '#F26321' : '#F26321',
         '#FFEFCE' : '#FFEFCE',
+        customTop: '#E75D46',
+        customBottom: '#E17E20',
+        customBlue: "#02215C"
       },
     },
   },
