@@ -111,6 +111,7 @@ export default function Contact() {
                 method="POST"
                 data-netlify="true"
                 data-netlify-honeypot="bot-field"
+                data-netlify-recaptcha="true"
               >
                 <input type="hidden" name="form-name" value="contact" />
                 <div className="hidden">
@@ -147,6 +148,8 @@ export default function Contact() {
                     placeholder="Message"
                   ></textarea>
                 </div>
+
+                <div data-netlify-recaptcha="true"></div>
 
                 <button className="w-full px-6 py-3 mt-6 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                   Get in touch
