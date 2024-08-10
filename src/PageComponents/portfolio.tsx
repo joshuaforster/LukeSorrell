@@ -74,7 +74,7 @@ const Portfolio: React.FC<PortfolioProps> = ({ Header }) => {
         </div>
         <div className="mx-auto mt-16 grid max-w-2xl auto-rows-fr grid-cols-1 gap-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {portfolioPieces.map((piece, key) => (
-            <PortfolioItem key={key} piece={piece} />
+            <PortfolioCard key={key} piece={piece} />
           ))}
         </div>
       </div>
@@ -82,11 +82,11 @@ const Portfolio: React.FC<PortfolioProps> = ({ Header }) => {
   );
 };
 
-interface PortfolioItemProps {
+interface PortfolioCardProps {
   piece: PortfolioItem;
 }
 
-const PortfolioItem: React.FC<PortfolioItemProps> = ({ piece }) => {
+const PortfolioCard: React.FC<PortfolioCardProps> = ({ piece }) => {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.75, // Using 75% of the window height
